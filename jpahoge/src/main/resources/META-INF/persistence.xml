@@ -3,6 +3,7 @@
 	<persistence-unit name="jpahoge" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>ru.misosi.mecab.Device</class>
+		<class>ru.misosi.mecab.User</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/database"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
