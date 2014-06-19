@@ -26,7 +26,7 @@ public class SpringDataAuthenticationProvider implements AuthenticationProvider 
 		String name = auth.getName();
 		String password = (String) auth.getCredentials();
 		
-		User user = userService.getByUsername(name);
+		User user = (User) userService.loadUserByUsername(name);
 		if (user == null) {
 			throw new BadCredentialsException("Username not found");
 		}

@@ -3,17 +3,38 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
     xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+    xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/mvc
-http://www.springframework.org/schema/mvc/spring-mvc.xsd
-http://www.springframework.org/schema/context
-http://www.springframework.org/schema/context/spring-context.xsd"
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/data/jpa
+	http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+
+"
 	>
 	<!-- Scan for components under this package -->
-    <!-- <context:component-scan base-package="ru.misosi.mecab" /> -->
-     
+    <context:component-scan base-package="ru.misosi.mecab">
+   		<context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
+	</context:component-scan>
     <!-- Enables the Spring MVC @Controller programming model -->
     <mvc:annotation-driven />
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<import resource="classpath:spring/spring-security.xml" />
+	<!-- <import resource="classpath:spring/spring-security.xml" /> -->
+	
+	<jpa:repositories base-package="ru.misosi.mecab"></jpa:repositories>
+	
+	<bean id="transactionManager" 
+          class="org.springframework.orm.jpa.JpaTransactionManager"
+          p:entityManagerFactory-ref="entityManagerFactory" />
+          
+    <bean id="entityManagerFactory" 
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+          p:persistenceUnitName="jpahoge">
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+        </property>
+    </bean>
 </beans>
